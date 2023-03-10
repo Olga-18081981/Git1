@@ -1,0 +1,351 @@
+папка BonusMileservice
+
+JAVA
+
+
+public class BonusService {
+
+    public long calculate(long amount, boolean registered) {
+        int percent=registered ? 3 : 1;
+        long bonus=amount * percent / 100 / 100;
+        long limit=500;
+        if ( bonus > limit ) {
+            bonus=limit;
+        }
+        return bonus;
+    }
+}
+
+бОНУС СЕРВИС тЕСТДЖАВА
+
+import static org.junit.jupiter.api.Assertions.*;
+
+class BonusServiceTest {
+
+    @org.junit.jupiter.api.Test
+    void shouldCalculateForRegisteredAndUnderLimit() {
+        BonusService service=new BonusService();
+
+        // подготавливаем данные:
+        long amount=1000_60;
+        boolean registered=true;
+        long expected=30;
+
+        // вызываем целевой метод:
+        long actual=service.calculate(amount, registered);
+
+        // производим проверку (сравниваем ожидаемый и фактический):
+        assertEquals(expected, actual);
+    }
+
+    @org.junit.jupiter.api.Test
+    void shouldCalculateForRegisteredAndOverLimit() {
+        BonusService service=new BonusService();
+
+        // подготавливаем данные:
+        long amount=1_000_000_60;
+        boolean registered=true;
+        long expected=500;
+
+        // вызываем целевой метод:
+        long actual=service.calculate(amount, registered);
+
+        // производим проверку (сравниваем ожидаемый и фактический):
+        assertEquals(expected, actual);
+    }
+
+    @org.junit.jupiter.api.Test
+    void shouldCalculateForUnRegisteredAndUnderLimit() {
+        BonusService service=new BonusService();
+
+        // подготавливаем данные:
+        long amount=1000_60;
+        boolean registered=false;
+        long expected=10;
+
+        // вызываем целевой метод:
+        long actual=service.calculate(amount, registered);
+
+        // производим проверку (сравниваем ожидаемый и фактический):
+        assertEquals(expected, actual);
+    }
+
+    @org.junit.jupiter.api.Test
+    void shouldCalculateForUnRegisteredAndOverLimit() {
+        BonusService service=new BonusService();
+
+        // подготавливаем данные:
+        long amount=1_000_000_60;
+        boolean registered=false;
+        long expected=500;
+
+        // вызываем целевой метод:
+        long actual=service.calculate(amount, registered);
+
+        // производим проверку (сравниваем ожидаемый и фактический):
+        assertEquals(expected, actual);
+    }
+
+    @org.junit.jupiter.api.Test
+    void shouldCalculateForRegisteredAndNullAmount() {
+        BonusService service=new BonusService();
+
+        // подготавливаем данные:
+        long amount=0;
+        boolean registered=true;
+        long expected=0;
+
+        // вызываем целевой метод:
+        long actual=service.calculate(amount, registered);
+
+        // производим проверку (сравниваем ожидаемый и фактический):
+        assertEquals(expected, actual);
+    }
+
+    @org.junit.jupiter.api.Test
+    void shouldCalculateForUnRegisteredAndNullAmount() {
+        BonusService service=new BonusService();
+
+        // подготавливаем данные:
+        long amount=0;
+        boolean registered=false;
+        long expected=0;
+
+        // вызываем целевой метод:
+        long actual=service.calculate(amount, registered);
+
+        // производим проверку (сравниваем ожидаемый и фактический):
+        assertEquals(expected, actual);
+    }
+
+    @org.junit.jupiter.api.Test
+    void shouldCalculateForRegisteredAndAmountBoundaryValueOne() {
+        BonusService service=new BonusService();
+
+        // подготавливаем данные:
+        long amount=33_33;
+        boolean registered=true;
+        long expected=0;
+
+        // вызываем целевой метод:
+        long actual=service.calculate(amount, registered);
+
+        // производим проверку (сравниваем ожидаемый и фактический):
+        assertEquals(expected, actual);
+    }
+
+    @org.junit.jupiter.api.Test
+    void shouldCalculateForRegisteredAndAmountBoundaryValueTwo() {
+        BonusService service=new BonusService();
+
+        // подготавливаем данные:
+        long amount=33_34;
+        boolean registered=true;
+        long expected=1;
+
+        // вызываем целевой метод:
+        long actual=service.calculate(amount, registered);
+
+        // производим проверку (сравниваем ожидаемый и фактический):
+        assertEquals(expected, actual);
+    }
+
+    @org.junit.jupiter.api.Test
+    void shouldCalculateForRegisteredAndAmountBoundaryValueThree() {
+        BonusService service=new BonusService();
+
+        // подготавливаем данные:
+        long amount=33_35;
+        boolean registered=true;
+        long expected=1;
+
+        // вызываем целевой метод:
+        long actual=service.calculate(amount, registered);
+
+        // производим проверку (сравниваем ожидаемый и фактический):
+        assertEquals(expected, actual);
+    }
+
+    @org.junit.jupiter.api.Test
+    void shouldCalculateForUnRegisteredAndAmountBoundaryValueOne() {
+        BonusService service=new BonusService();
+
+        // подготавливаем данные:
+        long amount=99_99;
+        boolean registered=false;
+        long expected=0;
+
+        // вызываем целевой метод:
+        long actual=service.calculate(amount, registered);
+
+        // производим проверку (сравниваем ожидаемый и фактический):
+        assertEquals(expected, actual);
+    }
+
+    @org.junit.jupiter.api.Test
+    void shouldCalculateForUnRegisteredAndAmountBoundaryValueTwo() {
+        BonusService service=new BonusService();
+
+        // подготавливаем данные:
+        long amount=100_00;
+        boolean registered=false;
+        long expected=1;
+
+        // вызываем целевой метод:
+        long actual=service.calculate(amount, registered);
+
+        // производим проверку (сравниваем ожидаемый и фактический):
+        assertEquals(expected, actual);
+    }
+
+    @org.junit.jupiter.api.Test
+    void shouldCalculateForUnRegisteredAndAmountBoundaryValueThree() {
+        BonusService service=new BonusService();
+
+        // подготавливаем данные:
+        long amount=100_01;
+        boolean registered=false;
+        long expected=1;
+
+        // вызываем целевой метод:
+        long actual=service.calculate(amount, registered);
+
+        // производим проверку (сравниваем ожидаемый и фактический):
+        assertEquals(expected, actual);
+    }
+
+    @org.junit.jupiter.api.Test
+    void shouldCalculateForRegisteredAndLimitBoundaryValueOne() {
+        BonusService service=new BonusService();
+
+        // подготавливаем данные:
+        long amount=16_666_66;
+        boolean registered=true;
+        long expected=499;
+
+        // вызываем целевой метод:
+        long actual=service.calculate(amount, registered);
+
+        // производим проверку (сравниваем ожидаемый и фактический):
+        assertEquals(expected, actual);
+    }
+
+    @org.junit.jupiter.api.Test
+    void shouldCalculateForRegisteredAndLimitBoundaryValueTwo() {
+        BonusService service=new BonusService();
+
+        // подготавливаем данные:
+        long amount=16_666_67;
+        boolean registered=true;
+        long expected=500;
+
+        // вызываем целевой метод:
+        long actual=service.calculate(amount, registered);
+
+        // производим проверку (сравниваем ожидаемый и фактический):
+        assertEquals(expected, actual);
+    }
+
+    @org.junit.jupiter.api.Test
+    void shouldCalculateForRegisteredAndLimitBoundaryValueThree() {
+        BonusService service=new BonusService();
+
+        // подготавливаем данные:
+        long amount=16_666_68;
+        boolean registered=true;
+        long expected=500;
+
+        // вызываем целевой метод:
+        long actual=service.calculate(amount, registered);
+
+        // производим проверку (сравниваем ожидаемый и фактический):
+        assertEquals(expected, actual);
+    }
+
+    @org.junit.jupiter.api.Test
+    void shouldCalculateForUnRegisteredAndLimitBoundaryValueOne() {
+        BonusService service=new BonusService();
+
+        // подготавливаем данные:
+        long amount=49_999_99;
+        boolean registered=false;
+        long expected=499;
+
+        // вызываем целевой метод:
+        long actual=service.calculate(amount, registered);
+
+        // производим проверку (сравниваем ожидаемый и фактический):
+        assertEquals(expected, actual);
+    }
+
+    @org.junit.jupiter.api.Test
+    void shouldCalculateForUnRegisteredAndLimitBoundaryValueTwo() {
+        BonusService service=new BonusService();
+
+        // подготавливаем данные:
+        long amount=50_000_00;
+        boolean registered=false;
+        long expected=500;
+
+        // вызываем целевой метод:
+        long actual=service.calculate(amount, registered);
+
+        // производим проверку (сравниваем ожидаемый и фактический):
+        assertEquals(expected, actual);
+    }
+
+    @org.junit.jupiter.api.Test
+    void shouldCalculateForUnRegisteredAndLimitBoundaryValueThree() {
+        BonusService service=new BonusService();
+
+        // подготавливаем данные:
+        long amount=50_000_01;
+        boolean registered=false;
+        long expected=500;
+
+        // вызываем целевой метод:
+        long actual=service.calculate(amount, registered);
+
+        // производим проверку (сравниваем ожидаемый и фактический):
+        assertEquals(expected, actual);
+    }
+
+}
+
+POM.XML
+
+
+<?xml version="1.0" encoding="UTF-8"?>
+<project xmlns="http://maven.apache.org/POM/4.0.0"
+         xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+         xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 http://maven.apache.org/xsd/maven-4.0.0.xsd">
+    <modelVersion>4.0.0</modelVersion>
+
+    <groupId>ru.netology</groupId>
+    <artifactId>BonusCalculate</artifactId>
+    <version>1.0-SNAPSHOT</version>
+
+    <properties>
+        <maven.compiler.source>11</maven.compiler.source>
+        <maven.compiler.target>11</maven.compiler.target>
+    </properties>
+
+    <dependencies>
+        <dependency>
+            <groupId>org.junit.jupiter</groupId>
+            <artifactId>junit-jupiter</artifactId>
+            <version>5.7.0</version>
+            <scope>test</scope>
+        </dependency>
+    </dependencies>
+
+    <build>
+        <plugins>
+            <plugin>
+                <groupId>org.apache.maven.plugins</groupId>
+                <artifactId>maven-surefire-plugin</artifactId>
+                <version>2.22.2</version>
+            </plugin>
+        </plugins>
+    </build>
+
